@@ -9,9 +9,16 @@ include 'conn.php';
     <title>Insert Data GiftCode</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.1/jquery.form.min.js"></script>
+    <style>
+        .nav-button { display: inline-block; margin-bottom: 20px; padding: 10px 15px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px; }
+        .nav-button.blue { background-color: #007bff; }
+    </style>
 </head>
 
 <body>
+    <a href="list-items.php" class="nav-button">Xem Danh Sách Vật Phẩm</a>
+    <a href="add-shop-item.php" class="nav-button blue">Thêm Vật Phẩm Vào Shop</a>
+
     <h2>Insert Data GiftCode</h2>
 
     <form method="post" action="#" id="ducvupro_giftcode">
