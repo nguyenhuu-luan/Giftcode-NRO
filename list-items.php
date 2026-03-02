@@ -3,15 +3,15 @@ include 'conn.php'; // Include the database connection
 
 // Xử lý tìm kiếm
 $search = "";
-$where_clause = "";
+// Mặc định luôn lọc bỏ các item rỗng (tên rỗng hoặc null)
+$where_clause = " WHERE name != '' AND name IS NOT NULL";
 
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     // Lấy từ khóa và xử lý ký tự đặc biệt để tránh lỗi SQL
     $search = mysqli_real_escape_string($conn, $_GET['search']);
 
-    // Tạo câu điều kiện lọc: Tìm theo Tên HOẶC theo ID Icon
-    // Lưu ý: Tôi đang dùng tên cột 'name' và 'icon_id' như bạn đã xác nhận trước đó.
-    $where_clause = " WHERE name LIKE '%$search%' OR icon_id LIKE '%$search%'";
+    // Thêm điều kiện tìm kiếm vào điều kiện lọc rỗng hiện có
+    $where_clause .= " AND (name LIKE '%$search%' OR icon_id LIKE '%$search%')";
 }
 ?>
 <!DOCTYPE html>
@@ -73,8 +73,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
         <th>Description</th>
     </tr>
     <?php
-    // Câu truy vấn có thêm biến $where_clause (nếu có tìm kiếm thì biến này sẽ chứa điều kiện, nếu không thì rỗng)
-    // Đã sửa tên database thành linhthuydanhbac_data
+    // Câu truy vấn đã bao gồm điều kiện lọc item rỗng
     $query = "SELECT id, name, description, icon_id FROM `linhthuydanhbac_data`.`item_template`" . $where_clause;
 
     $result = mysqli_query($conn, $query);
